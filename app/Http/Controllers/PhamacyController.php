@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\PhamacyModel;
 
 class PhamacyController extends Controller
 {
@@ -13,7 +14,8 @@ class PhamacyController extends Controller
      */
     public function index()
     {
-        return "Phamary";
+        $data = PhamacyModel::all();
+        return view('Phamacy.index' , ['Phamacy' => $data]);
     }
 
     /**
@@ -23,7 +25,7 @@ class PhamacyController extends Controller
      */
     public function create()
     {
-        //
+        return view('Phamacy.create');
     }
 
     /**
@@ -34,7 +36,13 @@ class PhamacyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new PhamacyModel();
+        $data->pha_name = $request->Phamacy_Name ;
+        $data->analgesic = $request->Analgesic ;
+        $data->stock = $request->Stock ;
+        $data->save();
+        $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
+        return back();
     }
 
     /**
@@ -56,7 +64,8 @@ class PhamacyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = PhamacyModel::find($id);
+        return view('Phamacy.edit' , ['Phamacy' => $data]);
     }
 
     /**
@@ -68,7 +77,19 @@ class PhamacyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'Phamacy_Name'=>'required',
+            'Analgesic'=>'required',
+            'Stock'=>'required'
+        ]);
+
+        $data = PhamacyModel::find($id);
+        $data->pha_name = $request->Phamacy_Name ;
+        $data->analgesic = $request->Analgesic ;
+        $data->stock = $request->Stock ;
+        $data->save();
+        $request->session()->flash('success', "เปลี่ยนข้อมูลเรียบร้อย");
+        return back();
     }
 
     /**
@@ -79,6 +100,7 @@ class PhamacyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        PhamacyModel::destroy($id);
+        return back();
     }
 }
