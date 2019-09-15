@@ -6,7 +6,7 @@
         <div class="col-md-12">
                 <div class="row">
                         <div class="col-sm-12">
-                            <h2 class="display-3">Contacts</h2>
+                            <h2 class="display-3">คลังยา</h2>
                             <div class="row">
                             {{-- <a href="/Admin/Phamacy/create"></a> --}}
                             <a href="{{ route('Phamacy.create') }}" ><button class="btn btn-outline-info"> Create </button></a>

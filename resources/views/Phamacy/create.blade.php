@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="row">
                     <div class="col-sm-8 offset-sm-2">
-                       <h1 class="display-3">Add a contact</h1>
+                       <h1 class="display-3">เพิ่มยาคงคลัง</h1>
                      <div>
                        @if ($errors->any())
                          <div class="alert alert-danger">
@@ -39,7 +39,7 @@
                                  <label for="Stock">Stock:</label>
                                  <input type="number" class="form-control" name="Stock"/>
                              </div>
-                             <button type="submit" class="btn btn-outline-primary">Add contact</button>
+                             <button type="submit" class="btn btn-outline-primary">เพิ่ม</button>
                             <a class="btn btn-outline-dark" href="{{ route('Phamacy.index') }}">Back</a>
                          </form>
                      </div>
