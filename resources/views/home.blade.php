@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+                <a class="btn btn-outline-primary" href="#" style="margin-bottom: 15px;">บันทึกคำร้อง</a>
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
