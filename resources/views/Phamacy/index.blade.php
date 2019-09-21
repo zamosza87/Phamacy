@@ -17,9 +17,16 @@
                             <thead>
                                 <tr>
                                   <td>ID</td>
-                                  <td>Name</td>
-                                  <td>Analgesic</td>
-                                  <td>Stock</td>
+                                  <td>ชื่อไทย</td>
+                                  <td>ชื่อสามัญทางยา</td>
+                                  <td>ชื่อทางการค้า</td>
+                                  <td>ชื่อบริษัท</td>
+                                  <td>ชนิดยา</td>
+                                  <td>บรรจุภัณฑ์</td>
+                                  <td>ปริมาณ</td>
+                                  <td>สรรพคุณ</td>
+                                  <td>วันที่หมดอายุ</td>
+                                  <td>คงคลัง</td>
                                   <td colspan = 2>Actions</td>
                                 </tr>
                             </thead>
@@ -27,9 +34,17 @@
                                 @foreach($Phamacy as $data)
                                 <tr>
                                     <td>{{$data->pha_id}}</td>
-                                    <td>{{$data->pha_name}}</td>
-                                    <td>{{$data->analgesic}}</td>
+                                    <td>{{$data->thai_name}}</td>
+                                    <td>{{$data->generic_name}}</td>
+                                    <td>{{$data->trade_name}}</td>
+                                    <td>{{$data->company_Name}}</td>
+                                    <td>{{$data->drug_type}}</td>
+                                    <td>{{$data->package}}</td>
+                                    <td>{{$data->amount}}</td>
+                                    <td>{{$data->properties}}</td>
+                                    <td>{{$data->expiry_date}}</td>
                                     <td>{{$data->stock}}</td>
+
                                     <td>
                                         <a href="{{ route('Phamacy.edit',$data->pha_id)}}" class="btn btn-primary">Edit</a>
                                     </td>

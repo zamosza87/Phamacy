@@ -16,6 +16,6 @@ class PhamacyModel extends Model
      * @var array
      */
     protected $fillable = [
-        'pha_name','stock', 'analgesic'
+        'pha_id','thai_name','generic_name', 'trade_name' , 'company_Name' , 'drug_type' , 'package' , 'amount' , 'properties' , 'expiry_date' , 'stock'
     ];
 }

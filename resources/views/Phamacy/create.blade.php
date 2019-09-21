@@ -26,19 +26,47 @@
                          <form method="post" action="{{ route('Phamacy.store') }}">
                              @csrf
                              <div class="form-group">
-                                 <label for="Phamacry_Name">Phamacry Name:</label>
-                                 <input type="text" class="form-control" name="Phamacy_Name"/>
+                                 <label for="thai_name">ชื่อไทย:</label>
+                                 <input type="text" class="form-control" name="thai_name"/>
                              </div>
 
                              <div class="form-group">
-                                 <label for="Analgesic">Analgesic:</label>
-                                 <input type="text" class="form-control" name="Analgesic"/>
+                                 <label for="generic_name">ชื่อสามัญทางยา:</label>
+                                 <input type="text" class="form-control" name="generic_name"/>
                              </div>
 
                              <div class="form-group">
-                                 <label for="Stock">Stock:</label>
-                                 <input type="number" class="form-control" name="Stock"/>
+                                 <label for="trade_name">ชื่อทางการค้า:</label>
+                                 <input type="number" class="form-control" name="trade_name"/>
                              </div>
+                             <div class="form-group">
+                                <label for="company_Name">ชื่อบริษัท:</label>
+                                <input type="number" class="form-control" name="company_Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="drug_type">ชนิดยา:</label>
+                                <input type="number" class="form-control" name="drug_type"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="package">บรรจุภัณฑ์:</label>
+                                <input type="number" class="form-control" name="package"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">ปริมาณ:</label>
+                                <input type="number" class="form-control" name="amount"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="properties">สรรพคุณ:</label>
+                                <input type="number" class="form-control" name="properties"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="expiry_date">วันที่หมดอายุ:</label>
+                                <input type="number" class="form-control" name="expiry_date"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="stock">คงคลัง:</label>
+                                <input type="number" class="form-control" name="stock"/>
+                            </div>
                              <button type="submit" class="btn btn-outline-primary">เพิ่ม</button>
                             <a class="btn btn-outline-dark" href="{{ route('Phamacy.index') }}">Back</a>
                          </form>

@@ -78,9 +78,16 @@ class PhamacyController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'Phamacy_Name'=>'required',
-            'Analgesic'=>'required',
-            'Stock'=>'required'
+            'thai_name'=>'required',
+            'generic_name'=>'required',
+            'trade_name'=>'required',
+            'company_Name'=>'required',
+            'drug_type'=>'required',
+            'package'=>'required',
+            'amount'=>'required',
+            'properties'=>'required',
+            'expiry_date'=>'required',
+            'stock'=>'required'
         ]);
 
         $data = PhamacyModel::find($id);
