@@ -37,9 +37,16 @@ class PhamacyController extends Controller
     public function store(Request $request)
     {
         $data = new PhamacyModel();
-        $data->pha_name = $request->Phamacy_Name ;
-        $data->analgesic = $request->Analgesic ;
-        $data->stock = $request->Stock ;
+        $data->thai_name = $request->thai_name ;
+        $data->generic_name = $request->generic_name ;
+        $data->trade_name = $request->trade_name ;
+        $data->company_Name = $request->company_Name ;
+        $data->drug_type = $request->drug_type ;
+        $data->package = $request->package ;
+        $data->amount = $request->amount ;
+        $data->properties = $request->properties ;
+        $data->expiry_date = $request->expiry_date ;
+        $data->stock = $request->stock ;
         $data->save();
         $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
         return back();
@@ -91,9 +98,16 @@ class PhamacyController extends Controller
         ]);
 
         $data = PhamacyModel::find($id);
-        $data->pha_name = $request->Phamacy_Name ;
-        $data->analgesic = $request->Analgesic ;
-        $data->stock = $request->Stock ;
+        $data->thai_name = $request->thai_name ;
+        $data->generic_name = $request->generic_name ;
+        $data->trade_name = $request->trade_name ;
+        $data->company_Name = $request->company_Name ;
+        $data->drug_type = $request->drug_type ;
+        $data->package = $request->package ;
+        $data->amount = $request->amount ;
+        $data->properties = $request->properties ;
+        $data->expiry_date = $request->expiry_date ;
+        $data->stock = $request->stock ;
         $data->save();
         $request->session()->flash('success', "เปลี่ยนข้อมูลเรียบร้อย");
         return back();

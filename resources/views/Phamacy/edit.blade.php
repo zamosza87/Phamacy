@@ -37,9 +37,9 @@
                              </div>
 
                              <div class="form-group">
-                                 <label for="trade_name">ชื่อทางการค้า:</label>
-                                 <input type="number" class="form-control" name="trade_name" value="{{ $Phamacy->trade_name }}"/>
-                             </div>
+                                    <label for="trade_name">ชื่อทางการค้า:</label>
+                                    <input type="text" class="form-control" name="trade_name" value="{{ $Phamacy->trade_name }}"/>
+                                </div>
 
                              <div class="form-group">
                                 <label for="company_Name">ชื่อบริษัท:</label>
@@ -58,7 +58,7 @@
 
                             <div class="form-group">
                                 <label for="amount">ปริมาณ:</label>
-                                <input type="text" class="form-control" name="amount" value="{{ $Phamacy->amount }}"/>
+                                <input type="number" class="form-control" name="amount" value="{{ $Phamacy->amount }}"/>
                             </div>
 
                             <div class="form-group">
@@ -68,12 +68,12 @@
 
                             <div class="form-group">
                                 <label for="expiry_date">วันที่หมดอายุ:</label>
-                                <input type="text" class="form-control" name="expiry_date" value="{{ $Phamacy->expiry_date }}"/>
+                                <input type="date" class="form-control" name="expiry_date" value="{{ $Phamacy->expiry_date }}"/>
                             </div>
 
                             <div class="form-group">
                                 <label for="stock">คงคลัง:</label>
-                                <input type="text" class="form-control" name="stock" value="{{ $Phamacy->stock }}"/>
+                                <input type="number" class="form-control" name="stock" value="{{ $Phamacy->stock }}"/>
                             </div>
                              <button type="submit" class="btn btn-outline-primary">update</button>
                             <a class="btn btn-outline-dark" href="{{ route('Phamacy.index') }}">Back</a>

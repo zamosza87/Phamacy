@@ -37,19 +37,19 @@
 
                              <div class="form-group">
                                  <label for="trade_name">ชื่อทางการค้า:</label>
-                                 <input type="number" class="form-control" name="trade_name"/>
+                                 <input type="text" class="form-control" name="trade_name"/>
                              </div>
                              <div class="form-group">
                                 <label for="company_Name">ชื่อบริษัท:</label>
-                                <input type="number" class="form-control" name="company_Name"/>
+                                <input type="text" class="form-control" name="company_Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="drug_type">ชนิดยา:</label>
-                                <input type="number" class="form-control" name="drug_type"/>
+                                <input type="text" class="form-control" name="drug_type"/>
                             </div>
                             <div class="form-group">
                                 <label for="package">บรรจุภัณฑ์:</label>
-                                <input type="number" class="form-control" name="package"/>
+                                <input type="text" class="form-control" name="package"/>
                             </div>
                             <div class="form-group">
                                 <label for="amount">ปริมาณ:</label>
@@ -57,11 +57,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="properties">สรรพคุณ:</label>
-                                <input type="number" class="form-control" name="properties"/>
+                                <input type="text" class="form-control" name="properties"/>
                             </div>
                             <div class="form-group">
                                 <label for="expiry_date">วันที่หมดอายุ:</label>
-                                <input type="number" class="form-control" name="expiry_date"/>
+                                <input type="date" class="form-control" name="expiry_date"/>
                             </div>
                             <div class="form-group">
                                 <label for="stock">คงคลัง:</label>

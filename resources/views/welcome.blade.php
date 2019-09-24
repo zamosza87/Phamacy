@@ -69,7 +69,6 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
-                        <a href="{{ route('Phamacy.index') }}">Phamacy</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -82,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    First Aid Room
                 </div>
 
                 <div class="links">

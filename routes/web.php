@@ -22,3 +22,5 @@ Route::resource('Admin/Phamacy', 'PhamacyController');
 Route::get('Profile', 'ProfileController@index')->name('Profile.index');
 Route::get('Profile/edit', 'ProfileController@edit')->name('Profile.edit');
 Route::patch('Profile/update', 'ProfileController@update')->name('Profile.update');
+Route::get('Member', 'MemberController@index')->name('Member.index');
+
