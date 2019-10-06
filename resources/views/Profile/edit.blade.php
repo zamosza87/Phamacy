@@ -29,13 +29,30 @@
             </div>
 
             <div class="form-group">
+                <label for="telephone_number">Telephone Number:</label>
+                <input type="text" class="form-control" name="telephone_number" value="{{ $data->telephone_number }}" />
+            </div>
+
+            <div class="form-group">
+                <label for="parent_phone_number">Parent Phone Number:</label>
+                <input type="text" class="form-control" name="parent_phone_number" value="{{ $data->parent_phone_number }}" />
+            </div>
+
+            <div class="form-group">
                 <label for="birth">Birth:</label>
                 <input type="date" class="form-control" name="birth" value="{{ $data->birth }}" />
             </div>
+
+            <div class="form-group">
+                <label for="identification_number">Identification Number:</label>
+                <input type="text" class="form-control" name="identification_number" value="{{ $data->identification_number}}" />
+            </div>
+
             <div class="form-group">
                 <label for="congenital_disease">Congenital Disease:</label>
                 <input type="text" class="form-control" name="congenital_disease" value="{{ $data->congenital_disease }}"/>
             </div>
+
             <div class="form-group">
                 <label for="drug_allergies">Drug Allergies:</label>
                 <input type="text" class="form-control" name="drug_allergies" value="{{ $data->drug_allergies }}" />

@@ -35,17 +35,29 @@
                                         <input type="text" class="form-control" readonly aria-label="Sizing example input" value="{{ $data->last_name }}">
                                     </div>
                                     <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="inputGroup-sizing-default">เบอร์โทรศัพท์</span>
+                                        </div>
+                                    <input type="text" class="form-control" readonly aria-label="Sizing example input" value="{{ $data->telephone_number }}">
+                                     </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="inputGroup-sizing-default">เบอร์โทรศัพท์ผู้ปกครอง</span>
+                                        </div>
+                                    <input type="text" class="form-control" readonly aria-label="Sizing example input" value="{{ $data->parent_phone_number }}">
+                                     </div>
+                                    <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                               <span class="input-group-text" id="inputGroup-sizing-default">วันเกิด</span>
                                             </div>
                                         <input type="text" class="form-control" readonly aria-label="Sizing example input" value="{{ $data->birth }}">
                                     </div>
                                     <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
-                                            </div>
-                                        <input type="text" class="form-control" readonly aria-label="Sizing example input" value="{{ $data->email }}">
-                                    </div>
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="inputGroup-sizing-default">รหัสประจำตัว</span>
+                                        </div>
+                                    <input type="text" class="form-control" readonly aria-label="Sizing example input" value="{{ $data->identification_number }}">
+                                     </div>
                                     <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                               <span class="input-group-text" id="inputGroup-sizing-default">โรคประจำตัว</span>

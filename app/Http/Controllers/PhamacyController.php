@@ -7,6 +7,9 @@ use App\Model\PhamacyModel;
 
 class PhamacyController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,7 @@ class PhamacyController extends Controller
      */
     public function index()
     {
-        $data = PhamacyModel::all();
+        $data = PhamacyModel::paginate(5);
         return view('Phamacy.index' , ['Phamacy' => $data]);
     }
 

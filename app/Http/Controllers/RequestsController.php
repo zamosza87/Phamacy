@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\User;
+use App\Model\RequestModel;
+use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class RequestsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,10 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $data = User::with('role')->get();
-        return view('Member.index' , ['Member' => $data]);
-        // return $data;
+        $data = RequestModel::where('status' , '0')->with('user')->get();
+        // $data = RequestModel::first();
+        return view('Request.index' , ['Request' => $data]);
+        // return response()->json($data, 200);
     }
 
     /**
@@ -26,7 +27,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('Request.create');
     }
 
     /**
@@ -37,16 +38,21 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new RequestModel();
+        $data->user_iden = $request->user_id ;
+        $data->description = $request->description ;
+        $data->save();
+        $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(RequestModel $requestModel)
     {
         //
     }
@@ -54,10 +60,10 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(RequestModel $requestModel)
     {
         //
     }
@@ -66,10 +72,10 @@ class MemberController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, RequestModel $requestModel)
     {
         //
     }
@@ -77,10 +83,10 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RequestModel $requestModel)
     {
         //
     }

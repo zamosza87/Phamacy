@@ -13,21 +13,26 @@
                                     <thead class="thead-dark">
                                       <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">ชื่อ</th>
-                                        <th scope="col">นามสกุล</th>
+                                        <th scope="col">ชื่อ นามสกุล </th>
+                                        {{-- <th scope="col">นามสกุล</th> --}}
                                         <th scope="col">Email</th>
                                         <th scope="col">วันเกิด</th>
-                                        <th colspan= 2>Actions</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">เวลาที่สมัคร</th>
+                                        {{-- <th colspan= 2>Actions</th> --}}
                                       </tr>
                                     </thead>
                              <tbody>
                                     @foreach($Member as $data)
                                     <tr>
-                                        <th>{{$data->id}}</th>
-                                        <th>{{$data->first_name}}</th>
-                                        <th>{{$data->last_name}}</th>
-                                        <th>{{$data->email}}</th>
-                                        <th>{{$data->birth}}</th>
+                                        <td>{{$data->id}}</td>
+                                        <td>{{$data->name}}</td>
+                                        {{-- <td>{{$data->first_name}}</td> --}}
+                                        {{-- <td>{{$data->last_name}}</td> --}}
+                                        <td>{{$data->email}}</td>
+                                        <td>{{$data->birth}}</td>
+                                        <td>{{$data->role->role_name}}</td>
+                                        <td>{{ date_format($data->created_at , 'd-M-Y')}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

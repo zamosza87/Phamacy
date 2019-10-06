@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -82,7 +83,10 @@ class ProfileController extends Controller
         $data = User::find(Auth::user()->id);
         $data->first_name = $request->first_name ;
         $data->last_name = $request->last_name ;
+        $data->telephone_number = $request->telephone_number ;
+        $data->parent_phone_number = $request->parent_phone_number ;
         $data->birth = $request->birth ;
+        $data->identification_number = $request->identification_number ;
         $data->congenital_disease = $request->congenital_disease ;
         $data->drug_allergies = $request->drug_allergies ;
         $data->save();

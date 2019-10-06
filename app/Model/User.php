@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name', 'email', 'password', 'role_id' , 'birth' , 'congenital_disease' , 'drug_allergies'
+        'first_name','last_name', 'email', 'password', 'role_id' , 'telephone_number' , 'parent_phone_number' ,'birth' , 'identification_number' ,'congenital_disease' , 'drug_allergies'
     ];
 
     /**
@@ -36,4 +36,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getNameAttribute()
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
+
+    public function requests()
+    {
+        return $this->hasMany('App\Model\RequestModel' , 'user_iden' , 'identification_number');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Model\RoleModel', 'role_id', 'id');
+    }
+
+    public function is_admin()
+    {
+        if($this->role_id == 99){
+            return true;
+        }
+        return false;
+    }
+
+    public function is_doc()
+    {
+        if($this->role_id == 10){
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -17,10 +17,30 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('Admin/Phamacy', 'PhamacyController');
-Route::get('Profile', 'ProfileController@index')->name('Profile.index');
-Route::get('Profile/edit', 'ProfileController@edit')->name('Profile.edit');
-Route::patch('Profile/update', 'ProfileController@update')->name('Profile.update');
-Route::get('Member', 'MemberController@index')->name('Member.index');
+Route::group(['middleware' => ['auth']], function () {
+
+    //// USER
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('Profile', 'ProfileController@index')->name('Profile.index');
+    Route::get('Profile/edit', 'ProfileController@edit')->name('Profile.edit');
+    Route::patch('Profile/update', 'ProfileController@update')->name('Profile.update');
+
+    /// DOC && ADMIN
+    Route::group(['prefix' => 'Admin' , 'middleware' => ['RoleAdmin']], function () {
+        Route::resource('/Phamacy', 'PhamacyController');
+        Route::resource('/Request', 'RequestsController');
+        Route::get('/Member', 'MemberController@index')->name('Member.index');
+    });
+    /// ADMIN
+    // Route::group(['prefix' => 'Admin' , 'middleware' => ['RoleAdmin']], function () {
+        ///
+    // });
+
+});
+
+
+
+
+
+
 
