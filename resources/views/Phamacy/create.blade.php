@@ -53,7 +53,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="amount">ปริมาณ:</label>
-                                <input type="number" class="form-control" name="amount"/>
+                                <input type="text" class="form-control" name="amount"/>
                             </div>
                             <div class="form-group">
                                 <label for="properties">สรรพคุณ:</label>

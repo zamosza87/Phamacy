@@ -21,7 +21,7 @@ class CreatePhamacyTable extends Migration
             $table->string('company_Name')->comment('ชื่อบริษัท');;
             $table->string('drug_type')->comment('ชนิดยา');;
             $table->string('package')->comment('บรรจุภัณฑ์');;
-            $table->integer('amount')->comment('ปริมาณ');;
+            $table->string('amount')->comment('ปริมาณ');;
             $table->string('properties')->comment('สรรพคุณ');;
             $table->date('expiry_date')->comment('วันที่หมดอายุ');;
             $table->integer('stock')->comment('คงคลัง');;

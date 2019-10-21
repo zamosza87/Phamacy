@@ -58,7 +58,7 @@
 
                             <div class="form-group">
                                 <label for="amount">ปริมาณ:</label>
-                                <input type="number" class="form-control" name="amount" value="{{ $Phamacy->amount }}"/>
+                                <input type="text" class="form-control" name="amount" value="{{ $Phamacy->amount }}"/>
                             </div>
 
                             <div class="form-group">
