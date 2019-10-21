@@ -75,7 +75,7 @@
                                 <a
                                     class="nav-link"
                                     href="{{ route('Request.index') }}"
-                                    >คำร้อง</a
+                                    >สอบถามอาการเบื้องต้น</a
                                 >
                             </li>
 

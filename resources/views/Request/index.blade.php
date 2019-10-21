@@ -8,7 +8,7 @@
 
                 <div class="row">
                         <div class="col-sm-12">
-                            <h2 class="display-3">คำร้อง</h2>
+                            <h2 class="display-3">สอบถามอาการเบื้องต้น</h2>
                             <div class="row">
                                 {{-- <a href="/Admin/Request/create"></a> --}}
                                 <a href="{{ route('Request.create') }}" ><button class="btn btn-outline-info"> Create </button></a>
