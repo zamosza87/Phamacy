@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\PhamacyModel;
+use DB;
 
 class PhamacyController extends Controller
 {
@@ -15,10 +17,13 @@ class PhamacyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = PhamacyModel::paginate(5);
-        return view('Phamacy.index' , ['Phamacy' => $data]);
+        $data = PhamacyModel::orderBy('pha_id');
+        if($search = $request->get('search')){
+            $data->where('pha_id' , 'LIKE', '%'.$search.'%')->orWhere('thai_name' , 'LIKE', '%'.$search.'%');
+        }
+        return view('Admin.Phamacy.index' , ['Phamacy' => $data->paginate(5)]);
     }
 
     /**
@@ -28,7 +33,12 @@ class PhamacyController extends Controller
      */
     public function create()
     {
-        return view('Phamacy.create');
+        return view('Admin.Phamacy.create');
+    }
+
+    public function search(Request $request)
+    {
+        //
     }
 
     /**
@@ -75,7 +85,7 @@ class PhamacyController extends Controller
     public function edit($id)
     {
         $data = PhamacyModel::find($id);
-        return view('Phamacy.edit' , ['Phamacy' => $data]);
+        return view('Admin.Phamacy.edit' , ['Phamacy' => $data]);
     }
 
     /**

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\User;
+use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class SeachController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $data = User::with('role')->get();
-        return view('Member.index' , ['Member' => $data]);
-        // return $data;
+        return view('search');
     }
 
     /**
@@ -57,7 +54,7 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
         //
     }
@@ -69,7 +66,7 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         //
     }

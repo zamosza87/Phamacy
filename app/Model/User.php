@@ -52,6 +52,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Model\RoleModel', 'role_id', 'id');
     }
 
+    public function history(){
+        return $this->hasMany('App\Model\HistoryModel' , 'id_user' , 'id');
+    }
+
     public function is_admin()
     {
         if($this->role_id == 99){

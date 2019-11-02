@@ -19,42 +19,42 @@
             @csrf
             <div class="form-group">
 
-                <label for="first_name">First Name:</label>
+                <label for="first_name">ชื่อจริง:</label>
                 <input type="text" class="form-control" name="first_name" value="{{ $data->first_name }}" />
             </div>
 
             <div class="form-group">
-                <label for="last_name">Last Name:</label>
+                <label for="last_name">นามสกุล:</label>
                 <input type="text" class="form-control" name="last_name" value="{{ $data->last_name }}" />
             </div>
 
             <div class="form-group">
-                <label for="telephone_number">Telephone Number:</label>
+                <label for="telephone_number">เบอร์โทรศัพท์:</label>
                 <input type="text" class="form-control" name="telephone_number" value="{{ $data->telephone_number }}" />
             </div>
 
             <div class="form-group">
-                <label for="parent_phone_number">Parent Phone Number:</label>
+                <label for="parent_phone_number">เบอร์โทรศัพท์ผู้ปกครอง:</label>
                 <input type="text" class="form-control" name="parent_phone_number" value="{{ $data->parent_phone_number }}" />
             </div>
 
             <div class="form-group">
-                <label for="birth">Birth:</label>
+                <label for="birth">วันเกิด:</label>
                 <input type="date" class="form-control" name="birth" value="{{ $data->birth }}" />
             </div>
 
             <div class="form-group">
-                <label for="identification_number">Identification Number:</label>
+                <label for="identification_number">รหัสประจำตัว:</label>
                 <input type="text" class="form-control" name="identification_number" value="{{ $data->identification_number}}" />
             </div>
 
             <div class="form-group">
-                <label for="congenital_disease">Congenital Disease:</label>
+                <label for="congenital_disease">โรคประจำตัว:</label>
                 <input type="text" class="form-control" name="congenital_disease" value="{{ $data->congenital_disease }}"/>
             </div>
 
             <div class="form-group">
-                <label for="drug_allergies">Drug Allergies:</label>
+                <label for="drug_allergies">แพ้ยา:</label>
                 <input type="text" class="form-control" name="drug_allergies" value="{{ $data->drug_allergies }}" />
             </div>
             <button type="submit" class="btn btn-primary">Update</button>

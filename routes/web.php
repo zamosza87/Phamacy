@@ -26,10 +26,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('Profile/update', 'ProfileController@update')->name('Profile.update');
 
     /// DOC && ADMIN
-    Route::group(['prefix' => 'Admin' , 'middleware' => ['RoleAdmin']], function () {
-        Route::resource('/Phamacy', 'PhamacyController');
-        Route::resource('/Request', 'RequestsController');
-        Route::get('/Member', 'MemberController@index')->name('Member.index');
+    Route::group(['namespace' => 'Admin','prefix' => 'admin' , 'middleware' => ['RoleAdmin']], function () {
+        Route::resources([
+            'Phamacy' => 'PhamacyController',
+            'Request' => 'RequestsController' ,
+            'Member' => 'MemberController' ,
+            'History/{user}/ht' => 'HistoryController']);
     });
     /// ADMIN
     // Route::group(['prefix' => 'Admin' , 'middleware' => ['RoleAdmin']], function () {

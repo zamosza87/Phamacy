@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Model\RequestModel;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class RequestsController extends Controller
     {
         $data = RequestModel::where('status' , '0')->with('user')->get();
         // $data = RequestModel::first();
-        return view('Request.index' , ['Request' => $data]);
+        return view('Admin.Request.index' , ['Request' => $data]);
         // return response()->json($data, 200);
     }
 
@@ -27,7 +28,7 @@ class RequestsController extends Controller
      */
     public function create()
     {
-        return view('Request.create');
+        return view('Admin.Request.create');
     }
 
     /**
