@@ -9,11 +9,11 @@
                     <div class="row" style="margin-bottom: 20px;">
                         {{-- <a href="/Admin/Phamacy/create"></a> --}}
                         <div class="col-auto mr-auto">
-                            <a href="{{ route('ht.create' , $user->id) }}">
+                            {{-- <a href="{{ route('ht.create' , $user->id) }}">
                                 <button class="btn btn-outline-info">
                                     Create
                                 </button>
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="col-auto">
                             <form class="form-inline my-2 my-lg-0" action="{{ URL::current() }}">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\RequestModel;
+use App\Model\HistoryModel;
+use Auth;
 use Illuminate\Http\Request;
 
 class RequestsController extends Controller
@@ -39,7 +41,7 @@ class RequestsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new RequestModel();
+        $data = new RequestModel;
         $data->user_iden = $request->user_id ;
         $data->description = $request->description ;
         $data->save();
@@ -53,9 +55,14 @@ class RequestsController extends Controller
      * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function show(RequestModel $requestModel)
+    public function show($id)
     {
-        //
+        try{
+            $data = RequestModel::with('user')->findOrfail($id);
+            return view('Admin.Request.dia' , ['data' => $data]);
+        } catch (\Exception $th) {
+            return redirect(route('Request.index'));
+        }
     }
 
     /**
@@ -64,7 +71,7 @@ class RequestsController extends Controller
      * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(RequestModel $requestModel)
+    public function edit($id)
     {
         //
     }
@@ -76,9 +83,21 @@ class RequestsController extends Controller
      * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RequestModel $requestModel)
+    public function update(Request $request, $id)
     {
-        //
+            $req = RequestModel::findOrfail($id);
+            $data = new HistoryModel;
+            $data->id_user = $req->user->id;
+            $data->id_doc = Auth::user()->id ;
+            $data->note = $request->note ;
+            $data->diagnose = $request->diagnose ;
+            $data->treatment = $request->treatment ;
+            $data->save();
+            $req->delete();
+            $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
+            return redirect(route('ht.index' , $req->user->id));
+
+
     }
 
     /**
@@ -87,7 +106,7 @@ class RequestsController extends Controller
      * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RequestModel $requestModel)
+    public function destroy($id)
     {
         //
     }
