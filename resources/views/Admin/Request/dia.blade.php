@@ -62,38 +62,23 @@
                 </div>
             </div>
 
-            <div class="modal fade addPhama" tabindex="-1" role="dialog" aria-labelledby="plusPhama" aria-hidden="true">
+            <div class="modal fade addPhama" tabindex="-1" role="dialog" aria-labelledby="plusPhama" id="plusPhama" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">ค้นหายา</h5>
-
-                            <form class="form-inline my-2 my-lg-0" action="#" id="searchPha" style="margin-left: 10px;">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{ Request::get('search')}}">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
-
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ชื่อยา</th>
-                                        <th>วันหมด</th>
-                                        <th>เลือก</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="modal-body" id="modal-searc">
+                            <div class="row">
+                                <form class="form-inline my-2 my-lg-0" action="{{ route('ajaxSearch')}}" id="searchPha" style="margin-left: 10px;">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{ Request::get('search')}}">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             .........
@@ -111,5 +96,37 @@
         $("#btn-plus").click(function(){
             $('#formRequest').append('<p>Test</p>');
         });
+
+        $("#searchPha").submit(function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+
+            var action_url 	= form.attr('action');
+            var _method = $(this).attr("method");
+            var SearchP = $('#searchPha input[name=search]').val();
+
+            var modal_result = $("#search-result")
+
+            axios.post(action_url, {
+                search: SearchP
+            })
+            .then(function (response) {
+                if(modal_result != null){
+                    modal_result.remove();
+                }
+                $('#modal-searc').append(response.data.display);
+            })
+            .catch(function (error) {
+                
+            });
+	    });
+
+        $('#plusPhama').on('hide.bs.modal', function (event) {
+            var modal_result = $("#search-result")
+            if(modal_result != null){
+                modal_result.remove();
+            }
+	    });
     </script>
 @endsection

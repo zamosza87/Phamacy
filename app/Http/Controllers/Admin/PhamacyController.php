@@ -137,4 +137,17 @@ class PhamacyController extends Controller
         PhamacyModel::destroy($id);
         return back();
     }
+
+    public function ajaxSearch(Request $request){
+        $data = PhamacyModel::orderBy('pha_id');
+        if($search = $request->search){
+            $data->where('pha_id' , 'LIKE', '%'.$search.'%')->orWhere('thai_name' , 'LIKE', '%'.$search.'%');
+        }
+        
+        $display = view('Admin.Request.searchPha' ,[
+            'data' => $data->get()
+        ])->render();
+        return response()->json(['display' => $display], 200);
+        // return view('Admin.Request.searchPha');
+    }
 }

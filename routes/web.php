@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
             'Request' => 'RequestsController' ,
             'Member' => 'MemberController' ,
             'History/{user}/ht' => 'HistoryController']);
+        Route::post('ajaxSearch', 'PhamacyController@ajaxSearch')->name('ajaxSearch');
     });
     /// ADMIN
     // Route::group(['prefix' => 'Admin' , 'middleware' => ['RoleAdmin']], function () {
