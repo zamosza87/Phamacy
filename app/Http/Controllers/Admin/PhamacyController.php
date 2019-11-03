@@ -148,6 +148,15 @@ class PhamacyController extends Controller
             'data' => $data->get()
         ])->render();
         return response()->json(['display' => $display], 200);
-        // return view('Admin.Request.searchPha');
+    }
+
+    public function InsertPhaRequest(Request $request){
+        $data = PhamacyModel::find($request->pha_id);
+
+        $display = view('Admin.Request.addPha' ,[
+            'data' => $data
+        ])->render();
+
+        return response()->json(['display' => $display], 200);
     }
 }

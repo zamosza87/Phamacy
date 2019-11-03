@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
             'Member' => 'MemberController' ,
             'History/{user}/ht' => 'HistoryController']);
         Route::post('ajaxSearch', 'PhamacyController@ajaxSearch')->name('ajaxSearch');
+        Route::post('InsertPhaRequest', 'PhamacyController@InsertPhaRequest')->name('InsertPhaRequest');
     });
     /// ADMIN
     // Route::group(['prefix' => 'Admin' , 'middleware' => ['RoleAdmin']], function () {

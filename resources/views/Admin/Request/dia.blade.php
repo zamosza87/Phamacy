@@ -13,51 +13,62 @@
                 <div class="row">
                     <div class="col-sm-8 offset-sm-2">
                        <h1 class="display-3">แก้ไขประวัติ</h1>
-                     <div>
-                       @if ($errors->any())
-                         <div class="alert alert-danger">
-                           <ul>
-                               @foreach ($errors->all() as $error)
-                                 <li>{{ $error }}</li>
-                               @endforeach
-                           </ul>
-                         </div><br />
-                        @endif
-                        <form method="post" action="{{ route('Request.update' , $data->id ) }}" id="formRequest">
-                                @method('PATCH')
-                                @csrf
-                             <div class="form-group">
-                                <label for="user">ชื่อผู้ป่วย:</label>
-                                <input type="text" class="form-control" name="user" value="{{ $data->user->name }}" readonly/>
-                             </div>
-
-                             <div class="form-group">
-                                    <label for="note">อาการป่วย:</label>
-                                    <input type="text" class="form-control" name="note" value="{{ $data->description }}" readonly/>
+                        <div>
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            </div><br />
+                            @endif
+                            @if(session('error'))
+                                <div class="alert alert-danger">
+                                {{ session('error') }}
+                                </div> 
+                            @endif
+                            <form method="post" action="{{ route('Request.update' , $data->id ) }}" id="formRequest">
+                                    @method('PATCH')
+                                    @csrf
+                                <div class="form-group">
+                                    <label for="user">ชื่อผู้ป่วย:</label>
+                                    <input type="text" class="form-control" name="user" value="{{ $data->user->name }}" readonly/>
                                 </div>
 
-                            <div class="form-group">
-                                    <label for="diagnose">วินิจฉัย:</label>
-                                    <input type="text" class="form-control" name="diagnose" value=""/>
-                                 </div>
+                                <div class="form-group">
+                                        <label for="note">อาการป่วย:</label>
+                                        <input type="text" class="form-control" name="note" value="{{ $data->description }}" readonly/>
+                                    </div>
 
-                            <div class="form-group">
-                                <label for="treatment">วิธีการรักษา:</label>
-                                <input type="text" class="form-control" name="treatment" value=""/>
+                                <div class="form-group">
+                                        <label for="diagnose">วินิจฉัย:</label>
+                                        <input type="text" class="form-control" name="diagnose" value=""/>
+                                    </div>
+
+                                <div class="form-group">
+                                    <label for="treatment">วิธีการรักษา:</label>
+                                    <input type="text" class="form-control" name="treatment" value=""/>
+                                </div>
+                                
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        <label for="note">จ่ายยา</label>
+                                        <button type="button" class="btn btn-outline-success" style="margin-left: 10px;" data-toggle="modal" data-target=".addPhama">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>                                      
+                                    </div>
+                                    <div class="card-body" id="card-pha">
+                                    </div>
+                                </div>
+                            </form>
+                        
+                            <div class="row justify-content-center">
+                                <button type="submit" class="btn btn-outline-primary" form="formRequest" >บันทึก</button>
+                                <a class="btn btn-outline-dark" href="{{ route('Request.index') }}">Back</a>
                             </div>
-                            <div class="form-group">
-                                <label for="note">จ่ายยา</label>
-                                <button type="button" class="btn btn-outline-success" style="margin-left: 10px;" data-toggle="modal" data-target=".addPhama">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>                                      
-                            </div>
-                         </form>
-                     
-                         <div class="row justify-content-center">
-                            <button type="submit" class="btn btn-outline-primary" form="formRequest" >บันทึก</button>
-                            <a class="btn btn-outline-dark" href="{{ route('Request.index') }}">Back</a>
                         </div>
-                     </div>
                    </div>
                 </div>
             </div>
@@ -97,6 +108,17 @@
             $('#formRequest').append('<p>Test</p>');
         });
 
+        // $("#selectPha").click(function(){
+        //     var pha_id = $('#selectPha').val();
+        //     console.log(pha_id);
+        // });
+
+        // $(document).on('click','.rm-pha', function(){
+        //     var rm_p = $(this).attr("id");
+        //     console.log("#"+rm_p);
+        //     $("#card-pha").remove("#"+rm_p);
+        // });
+
         $("#searchPha").submit(function(e) {
             e.preventDefault();
 
@@ -128,5 +150,6 @@
                 modal_result.remove();
             }
 	    });
+
     </script>
 @endsection

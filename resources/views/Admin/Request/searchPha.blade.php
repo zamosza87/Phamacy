@@ -1,6 +1,6 @@
 @IF(count($data) == 0)
-    <div class="row" id="search-result">
-        <p>ไม่พบข้อมูล</p>
+    <div class="row justify-content-center" id="search-result">
+        <p style="margin-top: 20px;">ไม่พบข้อมูล</p>
     </div>
 @ELSE 
 <div class="row" id="search-result">
@@ -20,7 +20,7 @@
                     <td>{{ $item->company_Name }}</td>
                     <td>{{ $item->expiry_date }}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-outline-secondary selectPha" id="{{ $item->pha_id }}"><i class="fa fa-plus" aria-hidden="true"></i></button>
                     </td>
                 </tr>
             @endforeach
@@ -28,4 +28,18 @@
         </tbody>
     </table>
 </div>
+<script>
+    $(".selectPha").click(function(){
+        var pha_id = $(this).attr("id");
+        var action_url = "{{ route('InsertPhaRequest')}}";
+        // console.log(url)
+        axios.post(action_url, {
+            pha_id: pha_id
+        }).then(function (response) {
+            $('#card-pha').append(response.data.display);
+        }).catch(function (error) {
+                
+        });
+    });
+</script>
 @ENDIF
