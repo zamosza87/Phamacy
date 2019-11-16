@@ -43,15 +43,15 @@
                                             <td>{{$data->treatment}}</td>
                                             <td>{{ date_format($data->created_at , 'd-M-Y ,H:i:s')}}</td>
                                             <td>
-                                                <a href="" class="btn btn-primary">
+                                                <button class="btn btn-primary show-his" id="{{$data->id}}">
                                                     Show
-                                                </a>
+                                                </button>
                                             </td>
-                                            <td>
-                                            <a href="{{ route('ht.edit' , [$user->id , $data->id]) }}" class="btn btn-primary">
+                                            {{-- <td>
+                                            <a href="{{ route('History.edit' , $data->id) }}" class="btn btn-primary">
                                                     แก้ไข
                                                 </a>
-                                                </td>
+                                                </td> --}}
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -62,6 +62,47 @@
                 </div>
             </div>
         </div>
-        @endsection
+        <div class="modal fade modal-info-his" tabindex="-1" role="dialog" aria-labelledby="plusPhama" id="info" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">ค้นหายา</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="modal-content">
+        
+                        </div>
+                        <div class="modal-footer">
+                            .........
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 </div>
+
+@endsection
+
+@section('scripts')
+    <script>
+        $('.show-his').click(function(){
+            var his_id = $(this).attr('id');
+            var action_url = '{{ route("History.show" , "his_id") }}'.replace('his_id' , his_id);
+            var info_result = $("#info-result")
+            axios.get(action_url)
+            .then(function (response) {
+                console.log(response)
+                if(info_result != null){
+                    info_result.remove();
+                }
+                $('#modal-content').append(response.data.display);
+                $(".modal-info-his").modal();
+            })
+            .catch(function (error) {
+
+            });
+        });
+    </script>
+@endsection

@@ -23,4 +23,14 @@ class HistoryDetailModel extends Model
     {
         return $this->belongsTo('App\Model\HistoryModel', 'his_id', 'id');
     }
+
+    public function pha()
+    {
+        return $this->belongsTo('App\Model\PhamacyModel', 'pha_id', 'pha_id');
+    }
+
+    public function nurse()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
 }

@@ -29,7 +29,7 @@ class HistoryModel extends Model
         return $this->belongsTo('App\User', 'id_doc', 'id');
     }
 
-    public function HistoryDetail()
+    public function historydetail()
     {
         return $this->hasMany('App\Model\HistoryDetailModel', 'his_id', 'id');
     }

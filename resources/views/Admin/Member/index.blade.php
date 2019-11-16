@@ -43,7 +43,7 @@
                                 <td>{{$data->role->role_name}}</td>
                                 <td>{{ date_format($data->created_at , 'd-M-Y')}}</td>
                                 <td>
-                                    <a href="{{ route('ht.index' ,$data->id) }}" class="btn btn-primary">
+                                    <a href="{{ route('Member.show' ,$data->id) }}" class="btn btn-primary">
                                         ประวัติ
                                     </a>
                                 </td>

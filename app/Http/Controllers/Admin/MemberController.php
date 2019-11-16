@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 
+use App\Model\HistoryModel;
+
 
 class MemberController extends Controller
 {
