@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class RoleDoc
+class RoleNurse
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class RoleDoc
      */
     public function handle($request, Closure $next)
     {
-        if(\Auth::user()->role_id == 10){
+        if(\Auth::user()->role_id == 5){
             return $next($request);
         }
         return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');

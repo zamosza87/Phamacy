@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="row">
                     <div class="col-sm-8 offset-sm-2">
-                       <h1 class="display-3">วินิจฉัย</h1>
+                       <h1 class="display-3">จ่ายยา</h1>
                         <div>
                             @if ($errors->any())
                             <div class="alert alert-danger">
@@ -28,7 +28,7 @@
                                 {{ session('error') }}
                                 </div>
                             @endif
-                            <form method="post" action="{{ route('Request.update' , $data->id ) }}" id="formRequest">
+                            <form method="post" action="{{ route('Dispense.update' , $data->id ) }}" id="formRequest">
                                     @method('PATCH')
                                     @csrf
                                 <div class="form-group">
@@ -38,21 +38,21 @@
 
                                 <div class="form-group">
                                         <label for="note">อาการป่วย:</label>
-                                        <input type="text" class="form-control" name="note" value="{{ $data->description }}" readonly/>
+                                        <input type="text" class="form-control" name="note" value="{{ $data->note }}" readonly/>
                                     </div>
 
                                 <div class="form-group">
                                         <label for="diagnose">วินิจฉัย:</label>
-                                        <input type="text" class="form-control" name="diagnose" value=""/>
+                                        <input type="text" class="form-control" name="diagnose" value="{{ $data->diagnose }}"readonly/>
                                     </div>
 
                                 <div class="form-group">
                                     <label for="treatment">วิธีการรักษา:</label>
-                                    <input type="text" class="form-control" name="treatment" value=""/>
+                                    <input type="text" class="form-control" name="treatment" value="{{ $data->treatment }}"readonly/>
                                 </div>
 
 
-                                {{-- <div class="card">
+                                <div class="card">
                                     <div class="card-header">
                                         <label for="note">จ่ายยา</label>
                                         <button type="button" class="btn btn-outline-success" style="margin-left: 10px;" data-toggle="modal" data-target=".addPhama">
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="card-body" id="card-pha">
                                     </div>
-                                </div> --}}
+                                </div>
                             </form>
 
                             <div class="row justify-content-center">

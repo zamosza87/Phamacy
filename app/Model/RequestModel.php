@@ -13,7 +13,7 @@ class RequestModel extends Model
     protected $table = 'request';
 
     protected $fillable = [
-        'user_iden','description'
+        'user_iden','description','type_'
     ];
 
     protected $dates = ['deleted_at'];

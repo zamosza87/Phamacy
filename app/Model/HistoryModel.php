@@ -16,10 +16,10 @@ class HistoryModel extends Model
      * @var array
      */
     protected $fillable = [
-        'id','id_user','id_doc', 'note' , 'diagnose' , 'treatment'
+        'id','id_user','id_doc', 'note' , 'diagnose' , 'treatment' , 'type_'
     ];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\User', 'id_user', 'id');
     }

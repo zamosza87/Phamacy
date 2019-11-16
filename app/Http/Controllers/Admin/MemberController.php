@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 
 class MemberController extends Controller
@@ -16,13 +17,15 @@ class MemberController extends Controller
      */
     public function index(Request $request)
     {
-
-        $data = user::orderBy('id');
-        if($search = $request->get('search')){
-            $data->where('id' , 'LIKE', '%'.$search.'%')->orWhere('first_name' , 'LIKE', '%'.$search.'%');
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = user::orderBy('id');
+            if($search = $request->get('search')){
+                $data->where('id' , 'LIKE', '%'.$search.'%')->orWhere('first_name' , 'LIKE', '%'.$search.'%');
+            }
+            return view('Admin.Member.index' , ['Member' => $data->paginate(10)]);
+            // return $data;
         }
-        return view('Admin.Member.index' , ['Member' => $data->paginate(10)]);
-        // return $data;
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -54,7 +57,14 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $userDetail = User::find($id);
+            $data = HistoryModel::where('id_user' , $id)->with('doc');
+            // return $data[0];
+            return view('Admin.History.index' , ['history' => $data->paginate(5) , 'user' => $userDetail]);
+            // return ['history' => $data->paginate(5) , 'user' => $user];
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -65,8 +75,11 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        $data = User::find($id);
-        return view('Admin.Member.edit' , [ 'data'=>$data]);
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = User::find($id);
+            return view('Admin.Member.edit' , [ 'data'=>$data]);
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -78,24 +91,27 @@ class MemberController extends Controller
      */
     public function update(Request $request , $id)
     {
-        $request->validate([
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'birth'=>'required'
-        ]);
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $request->validate([
+                'first_name'=>'required',
+                'last_name'=>'required',
+                'birth'=>'required'
+            ]);
 
-        $data = User::find($id);
-        $data->first_name = $request->first_name ;
-        $data->last_name = $request->last_name ;
-        $data->telephone_number = $request->telephone_number ;
-        $data->parent_phone_number = $request->parent_phone_number ;
-        $data->birth = $request->birth ;
-        $data->identification_number = $request->identification_number ;
-        $data->congenital_disease = $request->congenital_disease ;
-        $data->drug_allergies = $request->drug_allergies ;
-        $data->save();
-        $request->session()->flash('success', "เปลี่ยนข้อมูลเรียบร้อย");
-        return redirect(route('Member.index'));
+            $data = User::find($id);
+            $data->first_name = $request->first_name ;
+            $data->last_name = $request->last_name ;
+            $data->telephone_number = $request->telephone_number ;
+            $data->parent_phone_number = $request->parent_phone_number ;
+            $data->birth = $request->birth ;
+            $data->identification_number = $request->identification_number ;
+            $data->congenital_disease = $request->congenital_disease ;
+            $data->drug_allergies = $request->drug_allergies ;
+            $data->save();
+            $request->session()->flash('success', "เปลี่ยนข้อมูลเรียบร้อย");
+            return redirect(route('Member.index'));
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**

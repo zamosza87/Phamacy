@@ -28,7 +28,7 @@
                                 @csrf
                              <div class="form-group">
                                  <label for="user">ชื่อผู้ป่วย:</label>
-                                 <input type="text" class="form-control" name="user" value="{{ $data->users->name }}" readonly/>
+                                 <input type="text" class="form-control" name="user" value="{{ $data->user->name }}" readonly/>
                              </div>
 
                              <div class="form-group">

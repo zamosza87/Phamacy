@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\PhamacyModel;
 use DB;
+use Auth;
 
 class PhamacyController extends Controller
 {
@@ -19,11 +20,14 @@ class PhamacyController extends Controller
      */
     public function index(Request $request)
     {
-        $data = PhamacyModel::orderBy('pha_id');
-        if($search = $request->get('search')){
-            $data->where('pha_id' , 'LIKE', '%'.$search.'%')->orWhere('thai_name' , 'LIKE', '%'.$search.'%');
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = PhamacyModel::orderBy('pha_id');
+            if($search = $request->get('search')){
+                $data->where('pha_id' , 'LIKE', '%'.$search.'%')->orWhere('thai_name' , 'LIKE', '%'.$search.'%');
+            }
+            return view('Admin.Phamacy.index' , ['Phamacy' => $data->paginate(10)]);
         }
-        return view('Admin.Phamacy.index' , ['Phamacy' => $data->paginate(5)]);
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -33,7 +37,10 @@ class PhamacyController extends Controller
      */
     public function create()
     {
-        return view('Admin.Phamacy.create');
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            return view('Admin.Phamacy.create');
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     public function search(Request $request)
@@ -49,20 +56,23 @@ class PhamacyController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new PhamacyModel();
-        $data->thai_name = $request->thai_name ;
-        $data->generic_name = $request->generic_name ;
-        $data->trade_name = $request->trade_name ;
-        $data->company_Name = $request->company_Name ;
-        $data->drug_type = $request->drug_type ;
-        $data->package = $request->package ;
-        $data->amount = $request->amount ;
-        $data->properties = $request->properties ;
-        $data->expiry_date = $request->expiry_date ;
-        $data->stock = $request->stock ;
-        $data->save();
-        $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
-        return back();
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = new PhamacyModel();
+            $data->thai_name = $request->thai_name ;
+            $data->generic_name = $request->generic_name ;
+            $data->trade_name = $request->trade_name ;
+            $data->company_Name = $request->company_Name ;
+            $data->drug_type = $request->drug_type ;
+            $data->package = $request->package ;
+            $data->amount = $request->amount ;
+            $data->properties = $request->properties ;
+            $data->expiry_date = $request->expiry_date ;
+            $data->stock = $request->stock ;
+            $data->save();
+            $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
+            return back();
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -73,7 +83,11 @@ class PhamacyController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = PhamacyModel::find($id);
+        $display = view('Admin.Phamacy.info' ,[
+            'data' => $data
+        ])->render();
+        return response()->json(['display' => $display], 200);
     }
 
     /**
@@ -84,8 +98,11 @@ class PhamacyController extends Controller
      */
     public function edit($id)
     {
-        $data = PhamacyModel::find($id);
-        return view('Admin.Phamacy.edit' , ['Phamacy' => $data]);
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = PhamacyModel::find($id);
+            return view('Admin.Phamacy.edit' , ['Phamacy' => $data]);
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -97,33 +114,38 @@ class PhamacyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'thai_name'=>'required',
-            'generic_name'=>'required',
-            'trade_name'=>'required',
-            'company_Name'=>'required',
-            'drug_type'=>'required',
-            'package'=>'required',
-            'amount'=>'required',
-            'properties'=>'required',
-            'expiry_date'=>'required',
-            'stock'=>'required'
-        ]);
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $request->validate([
+                'thai_name'=>'required',
+                'generic_name'=>'required',
+                'trade_name'=>'required',
+                'company_Name'=>'required',
+                'drug_type'=>'required',
+                'package'=>'required',
+                'amount'=>'required',
+                'timeuse'=>'required',
+                'properties'=>'required',
+                'expiry_date'=>'required',
+                'stock'=>'required'
+            ]);
 
-        $data = PhamacyModel::find($id);
-        $data->thai_name = $request->thai_name ;
-        $data->generic_name = $request->generic_name ;
-        $data->trade_name = $request->trade_name ;
-        $data->company_Name = $request->company_Name ;
-        $data->drug_type = $request->drug_type ;
-        $data->package = $request->package ;
-        $data->amount = $request->amount ;
-        $data->properties = $request->properties ;
-        $data->expiry_date = $request->expiry_date ;
-        $data->stock = $request->stock ;
-        $data->save();
-        $request->session()->flash('success', "เปลี่ยนข้อมูลเรียบร้อย");
-        return back();
+            $data = PhamacyModel::find($id);
+            $data->thai_name = $request->thai_name ;
+            $data->generic_name = $request->generic_name ;
+            $data->trade_name = $request->trade_name ;
+            $data->company_Name = $request->company_Name ;
+            $data->drug_type = $request->drug_type ;
+            $data->package = $request->package ;
+            $data->amount = $request->amount ;
+            $data->timeuse = $request->timeuse ;
+            $data->properties = $request->properties ;
+            $data->expiry_date = $request->expiry_date ;
+            $data->stock = $request->stock ;
+            $data->save();
+            $request->session()->flash('success', "เปลี่ยนข้อมูลเรียบร้อย");
+            return back();
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -134,8 +156,11 @@ class PhamacyController extends Controller
      */
     public function destroy($id)
     {
-        PhamacyModel::destroy($id);
-        return back();
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            PhamacyModel::destroy($id);
+            return back();
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     public function ajaxSearch(Request $request){
@@ -143,7 +168,7 @@ class PhamacyController extends Controller
         if($search = $request->search){
             $data->where('pha_id' , 'LIKE', '%'.$search.'%')->orWhere('thai_name' , 'LIKE', '%'.$search.'%');
         }
-        
+
         $display = view('Admin.Request.searchPha' ,[
             'data' => $data->get()
         ])->render();

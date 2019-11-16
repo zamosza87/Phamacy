@@ -25,19 +25,58 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('Profile/edit', 'ProfileController@edit')->name('Profile.edit');
     Route::patch('Profile/update', 'ProfileController@update')->name('Profile.update');
 
-    /// DOC && ADMIN
-    Route::group(['namespace' => 'Admin','prefix' => 'admin' , 'middleware' => ['RoleAdmin']], function () {
+    /// ADMIN
+    Route::group(['namespace' => 'Admin','prefix' => 'backend' ], function () {
         Route::resources([
             'Phamacy' => 'PhamacyController',
             'Request' => 'RequestsController' ,
             'Member' => 'MemberController' ,
-            'History/{user}/ht' => 'HistoryController']);
+            'History/{user}/ht' => 'HistoryController'
+            ]);
         Route::post('ajaxSearch', 'PhamacyController@ajaxSearch')->name('ajaxSearch');
         Route::post('InsertPhaRequest', 'PhamacyController@InsertPhaRequest')->name('InsertPhaRequest');
     });
-    /// ADMIN
-    // Route::group(['prefix' => 'Admin' , 'middleware' => ['RoleAdmin']], function () {
-        ///
+
+    Route::group(['namespace' => 'Nurse','prefix' => 'backend' ], function () {
+        Route::resources([
+            'Dispense' => 'DispenseController']);
+
+    });
+
+    /// Doc
+    // Route::group(['namespace' => 'Admin','prefix' => 'doctor' , 'middleware' => ['RoleDoc']], function () {
+    //     Route::resources([
+    //         'Phamacy' => 'PhamacyController',
+    //         'Request' => 'RequestsController' ,
+    //         'Member' => 'MemberController' ,
+    //         'History/{user}/ht' => 'HistoryController'
+    //         ]);
+    //     Route::post('ajaxSearch', 'PhamacyController@ajaxSearch')->name('ajaxSearch');
+    //     Route::post('InsertPhaRequest', 'PhamacyController@InsertPhaRequest')->name('InsertPhaRequest');
+    // });
+
+    // Route::group(['namespace' => 'Nurse','prefix' => 'doctor' , 'middleware' => ['RoleDoc']], function () {
+    //     Route::resources([
+    //         'Dispense' => 'DispenseController']);
+
+    // });
+
+    /// Nurse
+    // Route::group(['namespace' => 'Admin','prefix' => 'nurse' , 'middleware' => ['RoleNurse']], function () {
+    //     Route::resources([
+    //         'Phamacy' => 'PhamacyController',
+    //         'Request' => 'RequestsController' ,
+    //         'Member' => 'MemberController' ,
+    //         'History/{user}/ht' => 'HistoryController'
+    //         ]);
+    //     Route::post('ajaxSearch', 'PhamacyController@ajaxSearch')->name('ajaxSearch');
+    //     Route::post('InsertPhaRequest', 'PhamacyController@InsertPhaRequest')->name('InsertPhaRequest');
+    // });
+
+    // Route::group(['namespace' => 'Nurse','prefix' => 'nurse' , 'middleware' => ['RoleNurse']], function () {
+    //     Route::resources([
+    //         'Dispense' => 'DispenseController']);
+
     // });
 
 });

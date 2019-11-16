@@ -11,6 +11,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Redirect;
 
+
 class RequestsController extends Controller
 {
     /**
@@ -20,10 +21,13 @@ class RequestsController extends Controller
      */
     public function index()
     {
-        $data = RequestModel::where('status' , '0')->with('user')->get();
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = RequestModel::where('type_' , 'พบแพทย์')->with('user')->get();
         // $data = RequestModel::first();
         return view('Admin.Request.index' , ['Request' => $data]);
         // return response()->json($data, 200);
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -33,7 +37,10 @@ class RequestsController extends Controller
      */
     public function create()
     {
-        return view('Admin.Request.create');
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            return view('Admin.Request.create');
+            }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -44,12 +51,34 @@ class RequestsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new RequestModel;
-        $data->user_iden = $request->user_id ;
-        $data->description = $request->description ;
-        $data->save();
-        $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
-        return back();
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            if($request->_type == "เบิกยา"){
+                $data = new RequestModel;
+                $data->user_iden = $request->user_id ;
+                $data->description = $request->description ;
+                $data->type_ = 'เบิกยา' ;
+                $data->save();
+
+                HistoryModel::create([
+                    'id_user' => $data->user->id ,
+                    'id_doc' => Auth::user()->id ,
+                    'note' => $data->description ,
+                    'type_' => 'เบิกยา'
+                ]);
+
+                $data->delete();
+            } else {
+                $data = new RequestModel;
+                $data->user_iden = $request->user_id ;
+                $data->description = $request->description ;
+                $data->type_ = 'พบแพทย์' ;
+                $data->save();
+            }
+
+            $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
+            return back();
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -60,12 +89,15 @@ class RequestsController extends Controller
      */
     public function show($id)
     {
-        try{
-            $data = RequestModel::with('user')->findOrfail($id);
-            return view('Admin.Request.dia' , ['data' => $data]);
-        } catch (\Exception $th) {
-            return redirect(route('Request.index'));
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            try{
+                $data = RequestModel::with('user')->findOrfail($id);
+                return view('Admin.Request.dia' , ['data' => $data]);
+            } catch (\Exception $th) {
+                return redirect(route('Request.index'));
+            }
         }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -88,17 +120,8 @@ class RequestsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-        foreach ($request->pha as $key => $value) {
-            $Phama = PhamacyModel::find($key);
-            $amount = (int)$Phama->stock - $value;
-            if($amount < 0){
-                $request->session()->flash('error', $Phama->trade_name." จำนวนยาน้อยกว่าความต้องการ");
-                return Redirect::back()->withInput();
-            }
-            $Phama->stock = $amount;
-            $Phama->save();
-        }
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+
             $req = RequestModel::findOrfail($id);
             $data = HistoryModel::firstOrCreate([
                 'id_user' => $req->user->id ,
@@ -106,19 +129,13 @@ class RequestsController extends Controller
                 'note' => $request->note ,
                 'diagnose' => $request->diagnose ,
                 'treatment' => $request->treatment ,
+                'type_' => 'จ่ายยา'
             ]);
-
-            foreach ($request->pha as $key => $value) {
-                $detailHis =  new HistoryDetailModel;
-                $detailHis->pha_id = $key;
-                $detailHis->amount = $value;
-                $data->HistoryDetail()->save($detailHis);
-            }
-
-
             $req->delete();
-            $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
-            return redirect(route('ht.index' , $req->user->id));
+            // $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
+            return redirect(route('Request.index'));
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
 
 
     }

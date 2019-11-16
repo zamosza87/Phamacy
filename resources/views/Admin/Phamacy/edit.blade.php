@@ -62,6 +62,16 @@
                             </div>
 
                             <div class="form-group">
+                                    <label for="timeuse">วิธีการใช้:</label>
+                                    <select name="timeuse" class="form-control">
+                                            <option value=""></option>
+                                            <option value="รับประทานก่อนอาหาร" {{ $Phamacy->timeuse == 'รับประทานก่อนอาหาร' ? 'selected' : '' }}>รับประทานก่อนอาหาร</option>
+                                            <option value="รับประทานหลังอาหาร"{{ $Phamacy->timeuse == 'รับประทานหลังอาหาร' ? 'selected' : '' }}>รับประทานหลังอาหาร</option>
+                                            <option value="ยาใช้ภายนอก"{{ $Phamacy->timeuse == 'ยาใช้ภายนอก' ? 'selected' : '' }}>ยาใช้ภายนอก</option>
+                                    </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="properties">สรรพคุณ:</label>
                                 <input type="text" class="form-control" name="properties" value="{{ $Phamacy->properties }}"/>
                             </div>

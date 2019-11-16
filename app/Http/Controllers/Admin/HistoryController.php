@@ -16,11 +16,14 @@ class HistoryController extends Controller
      */
     public function index($user)
     {
-        $userDetail = User::find($user);
-        $data = HistoryModel::where('id_user' , $user)->with('doc');
-        // return $data[0];
-        return view('Admin.History.index' , ['history' => $data->paginate(5) , 'user' => $userDetail]);
-        // return ['history' => $data->paginate(5) , 'user' => $user];
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $userDetail = User::find($user);
+            $data = HistoryModel::where('id_user' , $user)->with('doc');
+            // return $data[0];
+            return view('Admin.History.index' , ['history' => $data->paginate(5) , 'user' => $userDetail]);
+            // return ['history' => $data->paginate(5) , 'user' => $user];
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -30,8 +33,11 @@ class HistoryController extends Controller
      */
     public function create($user)
     {
-        $userDetail = User::find($user);
-        return view('Admin.History.create' , ['user' => $userDetail]);
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $userDetail = User::find($user);
+            return view('Admin.History.create' , ['user' => $userDetail]);
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -42,15 +48,18 @@ class HistoryController extends Controller
      */
     public function store(Request $request , $user)
     {
-        $data = new HistoryModel();
-        $data->id_user = $user ;
-        $data->id_doc = Auth::user()->id ;
-        $data->note = $request->note ;
-        $data->diagnose = $request->diagnose ;
-        $data->treatment = $request->treatment ;
-        $data->save();
-        $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
-        return back();
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = new HistoryModel();
+            $data->id_user = $user ;
+            $data->id_doc = Auth::user()->id ;
+            $data->note = $request->note ;
+            $data->diagnose = $request->diagnose ;
+            $data->treatment = $request->treatment ;
+            $data->save();
+            $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
+            return back();
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -72,9 +81,12 @@ class HistoryController extends Controller
      */
     public function edit($user , $id)
     {
-        $data = HistoryModel::with('users')->find($id);
-        return view('Admin.History.edit' , [ 'data'=>$data ]);
-        // return $data;
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = HistoryModel::with('user')->find($id);
+            return view('Admin.History.edit' , [ 'data'=>$data ]);
+            // return $data;
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -86,21 +98,24 @@ class HistoryController extends Controller
      */
     public function update(Request $request,$user, $id)
     {
-        $request->validate([
-            'note'=>'required',
-            'diagnose'=>'required',
-            'treatment'=>'required'
-        ]);
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $request->validate([
+                'note'=>'required',
+                'diagnose'=>'required',
+                'treatment'=>'required'
+            ]);
 
-        $data = HistoryModel::find($id);
-        $data->id_user = $user ;
-        $data->id_doc = Auth::user()->id ;
-        $data->note = $request->note ;
-        $data->diagnose = $request->diagnose ;
-        $data->treatment = $request->treatment ;
-        $data->save();
-        $request->session()->flash('success', "เปลี่ยนข้อมูลเรียบร้อย");
-        return redirect(route('ht.index' , $user));
+            $data = HistoryModel::find($id);
+            $data->id_user = $user ;
+            $data->id_doc = Auth::user()->id ;
+            $data->note = $request->note ;
+            $data->diagnose = $request->diagnose ;
+            $data->treatment = $request->treatment ;
+            $data->save();
+            $request->session()->flash('success', "เปลี่ยนข้อมูลเรียบร้อย");
+            return redirect(route('ht.index' , $user));
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**

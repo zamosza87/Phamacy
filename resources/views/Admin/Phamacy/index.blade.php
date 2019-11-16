@@ -27,34 +27,38 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col" class="text-nowrap">ID</th>
-                                            <th scope="col" class="text-nowrap">ชื่อไทย</th>
+                                            {{-- <th scope="col" class="text-nowrap">ชื่อไทย</th> --}}
                                             <th scope="col" class="text-nowrap">ชื่อสามัญทางยา</th>
                                             <th scope="col" class="text-nowrap">ชื่อทางการค้า</th>
                                             <th scope="col" class="text-nowrap">ชื่อบริษัท</th>
-                                            <th scope="col" class="text-nowrap">ชนิดยา</th>
+                                            {{-- <th scope="col" class="text-nowrap">ชนิดยา</th>
+                                            <th scope="col" class="text-nowrap">ปริมาณ</th> --}}
                                             <th scope="col" class="text-nowrap">บรรจุภัณฑ์</th>
-                                            <th scope="col" class="text-nowrap">ปริมาณ</th>
-                                            <th scope="col" class="text-nowrap">สรรพคุณ</th>
-                                            <th scope="col" class="text-nowrap">วันที่หมดอายุ</th>
+                                            {{-- <th scope="col" class="text-nowrap">สรรพคุณ</th> --}}
                                             <th scope="col" class="text-nowrap">คงคลัง</th>
-                                            <th colspan="2">Actions</th>
+                                            <th scope="col" class="text-nowrap">วันที่หมดอายุ</th>
+                                            <th colspan="3">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($Phamacy as $data)
                                         <tr>
                                             <td>{{$data->pha_id}}</td>
-                                            <td>{{$data->thai_name}}</td>
+                                            {{-- <td>{{$data->thai_name}}</td> --}}
                                             <td>{{$data->generic_name}}</td>
                                             <td>{{$data->trade_name}}</td>
                                             <td>{{$data->company_Name}}</td>
-                                            <td>{{$data->drug_type}}</td>
+                                            {{-- <td>{{$data->drug_type}}</td>
+                                            <td>{{$data->amount}}</td> --}}
                                             <td>{{$data->package}}</td>
-                                            <td>{{$data->amount}}</td>
-                                            <td>{{$data->properties}}</td>
-                                            <td>{{$data->expiry_date}}</td>
+                                            {{-- <td>{{$data->properties}}</td> --}}
                                             <td>{{$data->stock}}</td>
-
+                                            <td>{{$data->expiry_date}}</td>
+                                            <td>
+                                                <button class="btn btn-success b-info" id="{{$data->pha_id}}">
+                                                    Info
+                                                </button>
+                                            </td>
                                             <td>
                                                 <a href="{{ route('Phamacy.edit',$data->pha_id)}}" class="btn btn-primary">
                                                     Edit
@@ -82,6 +86,47 @@
                 </div>
             </div>
         </div>
-        @endsection
+        <div class="modal fade modal-info-pha" tabindex="-1" role="dialog" aria-labelledby="plusPhama" id="info" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">ค้นหายา</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-content">
+
+                    </div>
+                    <div class="modal-footer">
+                        .........
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $('.b-info').click(function(){
+        var id = $(this).attr('id');
+
+        var action_url = "{{ route('Phamacy.show' , 'phaid' )}}".replace("phaid" , id);
+        var info_result = $("#info-result")
+
+        axios.get(action_url)
+        .then(function (response) {
+            if(info_result != null){
+                info_result.remove();
+            }
+            $('#modal-content').append(response.data.display);
+            $(".modal-info-pha").modal();
+        })
+        .catch(function (error) {
+
+        });
+    });
+</script>
+@endsection

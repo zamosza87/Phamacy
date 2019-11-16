@@ -68,15 +68,32 @@
                                 >
                             </li>
                             @endif @else
-                            @IF(Auth::user()->is_admin() || Auth::user()->is_doc())
+                            @IF(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() )
                             <li class="nav-item">
                                 <a
                                     class="nav-link"
-                                    href="{{ route('Request.index') }}"
+                                    href="{{ route('Request.create') }}"
                                     >สอบถามอาการเบื้องต้น</a
                                 >
                             </li>
+                            @endif
 
+                            @IF(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() )
+                            <li class="nav-item">
+                                <a  class="nav-link" href="{{ route('Request.index') }}">วินิจฉัย</a>
+                            </li>
+                            @endif
+
+                            @IF(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() )
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link"
+                                    href="{{ route('Dispense.index')}}"
+                                    >จ่ายยา</a>
+                            </li>
+                            @endif
+
+                            @IF(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() )
                             <li class="nav-item">
                                 <a
                                     class="nav-link"
@@ -84,7 +101,9 @@
                                     >คลังยา</a
                                 >
                             </li>
+                            @endif
 
+                            @IF(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() )
                             <li class="nav-item">
                                 <a
                                     class="nav-link"

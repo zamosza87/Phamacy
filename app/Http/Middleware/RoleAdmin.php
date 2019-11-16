@@ -15,9 +15,9 @@ class RoleAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(\Auth::user()->role_id < 99){
-            return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
+        if(\Auth::user()->role_id == 99){
+            return $next($request);
         }
-        return $next($request);
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 }

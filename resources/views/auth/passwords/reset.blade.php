@@ -13,7 +13,7 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="display: none;">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">

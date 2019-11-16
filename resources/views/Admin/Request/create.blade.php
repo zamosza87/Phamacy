@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="row">
                     <div class="col-sm-8 offset-sm-2">
-                       <h1 class="display-3">เพิ่มอาการ</h1>
+                       <h1 class="display-3">สอบถามอาการเบื้องต้น</h1>
                      <div>
                        @if ($errors->any())
                          <div class="alert alert-danger">
@@ -34,6 +34,13 @@
                                  <label for="description">คำอธิบาย:</label>
                                  <input type="text" class="form-control" name="description"/>
                              </div>
+                             <div class="form-group">
+                                <label for="select1">การใช้บริการ</label>
+                                <select class="form-control" id="select1" name="_type">
+                                  <option value="พบแพทย์">พบแพทย์</option>
+                                  <option value="เบิกยา">เบิกยา</option>
+                                </select>
+                              </div>
                              <button type="submit" class="btn btn-outline-primary">เพิ่ม</button>
                             <a class="btn btn-outline-dark" href="{{ route('Request.index') }}">Back</a>
                          </form>
