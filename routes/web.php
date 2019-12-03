@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
             'Phamacy' => 'PhamacyController',
             'Request' => 'RequestsController' ,
             'Member' => 'MemberController' ,
-            'History' => 'HistoryController'
+            'History' => 'HistoryController',
             ]);
         Route::post('ajaxSearch', 'PhamacyController@ajaxSearch')->name('ajaxSearch');
         Route::post('InsertPhaRequest', 'PhamacyController@InsertPhaRequest')->name('InsertPhaRequest');

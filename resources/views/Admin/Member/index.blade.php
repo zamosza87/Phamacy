@@ -9,6 +9,13 @@
                 <h2 class="display-3">สมาชิก</h2>
                 <div class="row" style="margin-bottom: 20px;">
                         {{-- <a href="/Admin/Phamacy/create"></a> --}}
+                        <div class="col-auto mr-auto">
+                            <a href="{{ route('Member.create') }}">
+                                <button class="btn btn-outline-info">
+                                    Create
+                                </button>
+                            </a>
+                        </div>
                     <div class="col-auto">
                         <form class="form-inline my-2 my-lg-0" action="{{ URL::current() }}">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{ Request::get('search')}}">

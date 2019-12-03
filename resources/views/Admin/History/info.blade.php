@@ -33,10 +33,9 @@
             <tr>
                 <td>{{$item->pha->generic_name}}</td>
                 <td>{{$item->amount}}</td>
-                <td>{{ $item->nurse ? $item->nurse->first_name . ' ' . $item->nurse->last_name : 'ไม่ระบุ' }}</td>
+                <td>{{$item->nurse ? $item->nurse->first_name . ' ' . $item->nurse->last_name : 'ไม่ระบุ' }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-    

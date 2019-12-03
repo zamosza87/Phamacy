@@ -37,7 +37,10 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            return view('Admin.Member.create');
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**
@@ -48,7 +51,21 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+            $data = new User();
+            $data->first_name = $request->first_name ;
+            $data->last_name = $request->last_name ;
+            $data->telephone_number = $request->telephone_number ;
+            $data->parent_phone_number = $request->parent_phone_number ;
+            $data->birth = $request->birth ;
+            $data->identification_number = $request->identification_number ;
+            $data->congenital_disease = $request->congenital_disease ;
+            $data->drug_allergies = $request->drug_allergies ;
+            $data->save();
+            $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
+            return back();
+        }
+        return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }
 
     /**

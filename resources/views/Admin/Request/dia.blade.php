@@ -41,6 +41,16 @@
                                         <input type="text" class="form-control" name="note" value="{{ $data->description }}" readonly/>
                                     </div>
 
+                                {{-- <div class="form-group">
+                                        <label for="congenital_disease">โรคประจำตัว:</label>
+                                        <input type="text" class="form-control" name="congenital_disease" value="{{ $data->congenital_disease }}" readonly/>
+                                    </div>
+
+                                <div class="form-group">
+                                        <label for="drug_allergies">แพ้ยา:</label>
+                                        <input type="text" class="form-control" name="drug_allergies" value="{{ $data->drug_allergies }}" readonly/>
+                                    </div> --}}
+
                                 <div class="form-group">
                                         <label for="diagnose">วินิจฉัย:</label>
                                         <input type="text" class="form-control" name="diagnose" value=""/>
@@ -52,7 +62,7 @@
                                 </div>
 
 
-                                {{-- <div class="card">
+                                <div class="card">
                                     <div class="card-header">
                                         <label for="note">จ่ายยา</label>
                                         <button type="button" class="btn btn-outline-success" style="margin-left: 10px;" data-toggle="modal" data-target=".addPhama">
@@ -61,7 +71,7 @@
                                     </div>
                                     <div class="card-body" id="card-pha">
                                     </div>
-                                </div> --}}
+                                </div>
                             </form>
 
                             <div class="row justify-content-center">

@@ -56,6 +56,8 @@ class RequestsController extends Controller
                 $data = new RequestModel;
                 $data->user_iden = $request->user_id ;
                 $data->description = $request->description ;
+                // $data->congenital_disease = $request->congenital_disease;
+                // $data->drug_allergies = $request->drug_allergies ;
                 $data->type_ = 'เบิกยา' ;
                 $data->save();
 
@@ -71,6 +73,8 @@ class RequestsController extends Controller
                 $data = new RequestModel;
                 $data->user_iden = $request->user_id ;
                 $data->description = $request->description ;
+                // $data->congenital_disease = $request->congenital_disease;
+                // $data->drug_allergies = $request->drug_allergies ;
                 $data->type_ = 'พบแพทย์' ;
                 $data->save();
             }
@@ -127,6 +131,8 @@ class RequestsController extends Controller
                 'id_user' => $req->user->id ,
                 'id_doc' => Auth::user()->id ,
                 'note' => $request->note ,
+                // 'congenital_disease' => $request->congenital_disease,
+                // 'drug_allergies' => $request->drug_allergies,
                 'diagnose' => $request->diagnose ,
                 'treatment' => $request->treatment ,
                 'type_' => 'จ่ายยา'
