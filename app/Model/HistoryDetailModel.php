@@ -16,7 +16,7 @@ class HistoryDetailModel extends Model
      * @var array
      */
     protected $fillable = [
-        'his_id','pha_id','id_doc', 'amount'
+        'his_id','pha_id','user_id','id_doc', 'amount'
     ];
 
     public function history()

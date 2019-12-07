@@ -19,7 +19,7 @@ class DispenseController extends Controller
     public function index()
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
-            $data = HistoryModel::whereIn('type_' , ['เบิกยา' , 'จ่ายยา'])->with('user')->get();
+            $data = HistoryModel::whereNotIn('type_' , ['สำเร็จ'])->with('user')->get();
             return view('Nurse.Dispense.index' , ['Request' => $data]);
         }
         return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
@@ -67,7 +67,7 @@ class DispenseController extends Controller
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
             try{
-                $data = HistoryModel::with('user')->findOrfail($id);
+                $data = HistoryModel::with(['user' , 'Historydetail'])->findOrfail($id);
                 return view('Nurse.Dispense.update' , ['data' => $data]);
             } catch (\Exception $th) {
                 return redirect(route('Dispense.index'));
@@ -99,11 +99,13 @@ class DispenseController extends Controller
             $data = HistoryModel::findOrfail($id);
             $data->type_ = 'สำเร็จ';
             foreach ($request->pha as $key => $value) {
-                $detailHis =  new HistoryDetailModel;
-                $detailHis->pha_id = $key;
-                $detailHis->user_id = Auth::user()->id;
-                $detailHis->amount = $value;
-                $data->HistoryDetail()->save($detailHis);
+                $detailHis =  HistoryDetailModel::firstOrCreate([
+                    'pha_id' => $key,
+                    'user_id' => Auth::user()->id,
+                    'amount' => $value,
+                    'his_id' => $data->id
+                ]);
+                // $data->HistoryDetail()->save($detailHis);
             }
             $data->save();
             $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");

@@ -24,7 +24,7 @@ class MemberController extends Controller
             if($search = $request->get('search')){
                 $data->where('id' , 'LIKE', '%'.$search.'%')->orWhere('first_name' , 'LIKE', '%'.$search.'%');
             }
-            return view('Admin.Member.index' , ['Member' => $data->paginate(10)]);
+            return view('Admin.Member.index' , ['Member' => $data->paginate(30)]);
             // return $data;
         }
         return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
@@ -80,7 +80,7 @@ class MemberController extends Controller
             $userDetail = User::find($id);
             $data = HistoryModel::where('id_user' , $id)->with('doc');
             // return $data[0];
-            return view('Admin.History.index' , ['history' => $data->paginate(5) , 'user' => $userDetail]);
+            return view('Admin.History.index' , ['history' => $data->paginate(15) , 'user' => $userDetail]);
             // return ['history' => $data->paginate(5) , 'user' => $user];
         }
         return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');

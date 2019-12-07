@@ -25,7 +25,7 @@ class PhamacyController extends Controller
             if($search = $request->get('search')){
                 $data->where('pha_id' , 'LIKE', '%'.$search.'%')->orWhere('thai_name' , 'LIKE', '%'.$search.'%');
             }
-            return view('Admin.Phamacy.index' , ['Phamacy' => $data->paginate(10)]);
+            return view('Admin.Phamacy.index' , ['Phamacy' => $data->paginate(20)]);
         }
         return redirect('home')->with('warning' , 'จำกัดสิทธิ์การเข้าถึง');
     }

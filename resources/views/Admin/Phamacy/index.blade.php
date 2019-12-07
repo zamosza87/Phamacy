@@ -5,6 +5,11 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-12">
+                        @if (Session::has('success'))
+                        <div class="alert alert-success" role="alert">
+                        <label>{{ Session::get('success') }}</label>
+                        </div>
+                         @endif
                     <h2 class="display-3">คลังยา</h2>
                     <div class="row" style="margin-bottom: 20px;">
                         {{-- <a href="/Admin/Phamacy/create"></a> --}}

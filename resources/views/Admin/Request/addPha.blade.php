@@ -1,5 +1,5 @@
 <div class="form-inline pha-{{ $data->pha_id }}">
-    <label for="pha" class="col-5">{{ $data->trade_name }}</label>
+    <label for="pha" class="col-5">{{ $data->generic_name }}</label>
     <div class="col-6">
         <input type="text" class="form-control" name="pha[{{ $data->pha_id }}]" value=""/>
     </div>

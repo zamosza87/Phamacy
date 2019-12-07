@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Model\HistoryModel;
 
 class ProfileController extends Controller
 {
@@ -103,5 +104,12 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function history()
+    {
+            $data = HistoryModel::where('id_user' , Auth::user()->id)->with('doc');
+            return view('Profile.history' , ['history' => $data->paginate(15)]);
+            
     }
 }

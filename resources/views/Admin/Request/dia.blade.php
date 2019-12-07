@@ -41,7 +41,7 @@
                                         <input type="text" class="form-control" name="note" value="{{ $data->description }}" readonly/>
                                     </div>
 
-                                {{-- <div class="form-group">
+                                <div class="form-group">
                                         <label for="congenital_disease">โรคประจำตัว:</label>
                                         <input type="text" class="form-control" name="congenital_disease" value="{{ $data->congenital_disease }}" readonly/>
                                     </div>
@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                         <label for="drug_allergies">แพ้ยา:</label>
                                         <input type="text" class="form-control" name="drug_allergies" value="{{ $data->drug_allergies }}" readonly/>
-                                    </div> --}}
+                                    </div>
 
                                 <div class="form-group">
                                         <label for="diagnose">วินิจฉัย:</label>

@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('Profile', 'ProfileController@index')->name('Profile.index');
     Route::get('Profile/edit', 'ProfileController@edit')->name('Profile.edit');
     Route::patch('Profile/update', 'ProfileController@update')->name('Profile.update');
+    Route::get('history', 'ProfileController@history')->name('Profile.history');
 
     /// ADMIN
     Route::group(['namespace' => 'Admin','prefix' => 'backend' ], function () {

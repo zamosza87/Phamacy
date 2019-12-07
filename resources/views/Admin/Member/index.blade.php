@@ -6,16 +6,21 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-12">
+                    @if (Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                    <label>{{ Session::get('success') }}</label>
+                    </div>
+                    @endif
                 <h2 class="display-3">สมาชิก</h2>
                 <div class="row" style="margin-bottom: 20px;">
                         {{-- <a href="/Admin/Phamacy/create"></a> --}}
-                        <div class="col-auto mr-auto">
+                        {{-- <div class="col-auto mr-auto">
                             <a href="{{ route('Member.create') }}">
                                 <button class="btn btn-outline-info">
                                     Create
                                 </button>
                             </a>
-                        </div>
+                        </div> --}}
                     <div class="col-auto">
                         <form class="form-inline my-2 my-lg-0" action="{{ URL::current() }}">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" aria-label="Search" value="{{ Request::get('search')}}">

@@ -60,6 +60,15 @@
                                         </button>
                                     </div>
                                     <div class="card-body" id="card-pha">
+                                            @foreach($data->Historydetail  as $index => $value)
+                                            <div class="form-inline pha-{{ $data->pha_id }}">
+                                                    <label for="pha" class="col-5">{{ $value->pha->generic_name }}</label>
+                                                    <div class="col-6">
+                                                    <input type="text" class="form-control" name="pha[{{ $value->pha_id }}]" value="{{ $value->amount }}"/>
+                                                    </div>
+                                                    <button type="button" class="btn btn-outline-danger col-1 rm-pha" id="{{ $value->pha_id }}"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+                                                </div>
+                                          @endforeach
                                     </div>
                                 </div>
                             </form>
