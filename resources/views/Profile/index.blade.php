@@ -46,6 +46,12 @@
                                         </div>
                                     <input type="text" class="form-control" readonly aria-label="Sizing example input" value="{{ $data->parent_phone_number }}">
                                      </div>
+                                     <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="inputGroup-sizing-default">คณะ/สังกัด</span>
+                                        </div>
+                                    <input type="text" class="form-control" readonly aria-label="Sizing example input" value="{{ $data->faculty }}">
+                                     </div>
                                     <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                               <span class="input-group-text" id="inputGroup-sizing-default">วันเกิด</span>

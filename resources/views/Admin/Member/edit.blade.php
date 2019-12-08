@@ -47,6 +47,11 @@
                                 </div>
 
                             <div class="form-group">
+                                    <label for="faculty">คณะ/สังกัด:</label>
+                                    <input type="text" class="form-control" name="faculty" value="{{ $data->faculty }}"/>
+                                </div>
+
+                            <div class="form-group">
                                     <label for="birth">วันเกิด:</label>
                                     <input type="text" class="form-control" name="birth" value="{{ $data->birth }}"/>
                                 </div>

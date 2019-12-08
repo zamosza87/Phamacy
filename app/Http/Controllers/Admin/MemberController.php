@@ -57,6 +57,7 @@ class MemberController extends Controller
             $data->last_name = $request->last_name ;
             $data->telephone_number = $request->telephone_number ;
             $data->parent_phone_number = $request->parent_phone_number ;
+            $data->faculty = $request->faculty ;
             $data->birth = $request->birth ;
             $data->identification_number = $request->identification_number ;
             $data->congenital_disease = $request->congenital_disease ;
@@ -122,6 +123,7 @@ class MemberController extends Controller
             $data->last_name = $request->last_name ;
             $data->telephone_number = $request->telephone_number ;
             $data->parent_phone_number = $request->parent_phone_number ;
+            $data->faculty = $request->faculty ;
             $data->birth = $request->birth ;
             $data->identification_number = $request->identification_number ;
             $data->congenital_disease = $request->congenital_disease ;
