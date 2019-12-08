@@ -34,7 +34,7 @@
                 <tr>
                   <td>{{$data->id }}</td>
                   <td>{{$data->type_}}</td>
-                  <td>{{$data->user->name}}</td>
+                  <td>{{$data->user['name']}}</td>
                   <td>{{$data->note}}</td>
                   <td>{{$data->treatment}}</td>
                   <td>{{ date_format($data->created_at , 'd-M-Y ,H:i:s')}}</td>
