@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\MemRequest;
 use App\User;
 use Auth;
 
@@ -49,7 +50,7 @@ class MemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MemRequest $request)
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
             $data = new User();
@@ -109,14 +110,9 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request , $id)
+    public function update(MemRequest $request , $id)
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
-            $request->validate([
-                'first_name'=>'required',
-                'last_name'=>'required',
-                'birth'=>'required'
-            ]);
 
             $data = User::find($id);
             $data->first_name = $request->first_name ;

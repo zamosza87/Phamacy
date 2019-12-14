@@ -37,7 +37,7 @@
                                     <tbody>
                                         @foreach($history as $data)
                                         <tr>
-                                            <td>{{$data->doc->name}}</td>
+                                            <td>{{$data->doc['name']}}</td>
                                             <td>{{$data->note}}</td>
                                             <td>{{$data->diagnose}}</td>
                                             <td>{{$data->treatment}}</td>
@@ -72,7 +72,7 @@
                             </button>
                         </div>
                         <div class="modal-body" id="modal-content">
-        
+
                         </div>
                         <div class="modal-footer">
                             .........

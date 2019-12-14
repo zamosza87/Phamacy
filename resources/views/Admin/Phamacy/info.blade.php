@@ -25,7 +25,12 @@
     </div>
 
     <div class="form-group-row">
-        <label for="package">บรรจุภัณฑ์:</label>
+        <label for="stock">จำนวน:</label>
+        <input type="number" class="form-control" name="stock" value="{{ $data->stock }}"readonly/>
+    </div>
+
+    <div class="form-group-row">
+        <label for="package">ประเภท:</label>
         <input type="text" class="form-control" name="package" value="{{ $data->package }}"readonly/>
     </div>
 
@@ -43,11 +48,6 @@
             <label for="properties">สรรพคุณ:</label>
             <textarea class="form-control" name="properties" value="" readonly>{{ $data->properties }}</textarea>
         </div>
-
-    <div class="form-group-row">
-        <label for="stock">คงคลัง:</label>
-        <input type="number" class="form-control" name="stock" value="{{ $data->stock }}"readonly/>
-    </div>
 
     <div class="form-group-row">
             <label for="expiry_date">วันที่หมดอายุ:</label>

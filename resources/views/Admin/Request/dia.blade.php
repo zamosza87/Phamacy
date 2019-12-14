@@ -14,7 +14,7 @@
                     <div class="col-sm-8 offset-sm-2">
                        <h1 class="display-3">วินิจฉัย</h1>
                         <div>
-                            @if ($errors->any())
+                            {{-- @if ($errors->any())
                             <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -22,7 +22,7 @@
                                 @endforeach
                             </ul>
                             </div><br />
-                            @endif
+                            @endif --}}
                             @if(session('error'))
                                 <div class="alert alert-danger">
                                 {{ session('error') }}
@@ -53,12 +53,22 @@
 
                                 <div class="form-group">
                                         <label for="diagnose">วินิจฉัย:</label>
-                                        <input type="text" class="form-control" name="diagnose" value=""/>
+                                        <input type="text" class="form-control @error('diagnose') is-invalid @enderror" name="diagnose" value=""/>
+                                        @error('diagnose')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
 
                                 <div class="form-group">
                                     <label for="treatment">วิธีการรักษา:</label>
-                                    <input type="text" class="form-control" name="treatment" value=""/>
+                                    <input type="text" class="form-control @error('treatment') is-invalid @enderror" name="treatment" value=""/>
+                                    @error('treatment')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
 
 

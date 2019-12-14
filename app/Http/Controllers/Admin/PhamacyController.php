@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\PhamacyModel;
+use App\Http\Requests\PhaRequest;
 use DB;
 use Auth;
 
@@ -54,7 +55,7 @@ class PhamacyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PhaRequest $request)
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
             $data = new PhamacyModel();
@@ -112,22 +113,9 @@ class PhamacyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PhaRequest $request, $id)
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
-            $request->validate([
-                'thai_name'=>'required',
-                'generic_name'=>'required',
-                'trade_name'=>'required',
-                'company_Name'=>'required',
-                'drug_type'=>'required',
-                'package'=>'required',
-                'amount'=>'required',
-                'timeuse'=>'required',
-                'properties'=>'required',
-                'expiry_date'=>'required',
-                'stock'=>'required'
-            ]);
 
             $data = PhamacyModel::find($id);
             $data->thai_name = $request->thai_name ;

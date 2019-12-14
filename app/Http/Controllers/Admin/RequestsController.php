@@ -7,6 +7,8 @@ use App\Model\RequestModel;
 use App\Model\HistoryModel;
 use App\Model\HistoryDetailModel;
 use App\Model\PhamacyModel;
+use App\Http\Requests\ReqRequest;
+use App\Http\Requests\DiaRequest;
 use Auth;
 use Illuminate\Http\Request;
 use App\User;
@@ -50,9 +52,10 @@ class RequestsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReqRequest $request)
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
+
             $user = User::where('identification_number', $request->user_id)->first();
             if($request->_type == "เบิกยา"){
                 $data = new RequestModel;
@@ -124,13 +127,12 @@ class RequestsController extends Controller
      * @param  \App\Model\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DiaRequest $request, $id)
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
 
             $req = RequestModel::findOrfail($id);
             $user = User::where('identification_number', $req->user_iden)->first();
-
             $data = HistoryModel::firstOrCreate([
                 'id_user' => $req->user->id ,
                 'id_doc' => Auth::user()->id ,
@@ -141,26 +143,29 @@ class RequestsController extends Controller
                 'treatment' => $request->treatment ,
                 'type_' => 'จ่ายยา'
             ]);
-            foreach ($request->pha as $key => $value) {
-                $Phama = PhamacyModel::find($key);
-                $amount = (int)$Phama->stock - $value;
-                if($amount < 0){
-                    $request->session()->flash('error', $Phama->generic_name." จำนวนยาน้อยกว่าความต้องการ");
-                    return Redirect::back()->withInput();
+            if(count($request->pha) > 0){
+                foreach ($request->pha as $key => $value) {
+                    $Phama = PhamacyModel::find($key);
+                    $amount = (int)$Phama->stock - $value;
+                    if($amount < 0){
+                        $request->session()->flash('error', $Phama->generic_name." จำนวนยาน้อยกว่าความต้องการ");
+                        return Redirect::back()->withInput();
+                    }
+                    $Phama->stock = $amount;
+                    $Phama->save();
                 }
-                $Phama->stock = $amount;
-                $Phama->save();
+                foreach ($request->pha as $key => $value) {
+                    $detailHis =  HistoryDetailModel::firstOrCreate([
+                        'pha_id' => $key,
+                        'user_id' => Auth::user()->id,
+                        'amount' => $value,
+                        'his_id' => $data->id
+                    ]);
+                    // $data->HistoryDetail()->save($detailHis);
+                }
             }
+
             $data->type_ = 'รอจ่าย';
-            foreach ($request->pha as $key => $value) {
-                $detailHis =  HistoryDetailModel::firstOrCreate([
-                    'pha_id' => $key,
-                    'user_id' => Auth::user()->id,
-                    'amount' => $value,
-                    'his_id' => $data->id
-                ]);
-                // $data->HistoryDetail()->save($detailHis);
-            }
             $data->save();
             $req->delete();
             $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");

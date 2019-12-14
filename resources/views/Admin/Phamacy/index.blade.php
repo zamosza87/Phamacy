@@ -38,9 +38,9 @@
                                             <th scope="col" class="text-nowrap">ชื่อบริษัท</th>
                                             {{-- <th scope="col" class="text-nowrap">ชนิดยา</th>
                                             <th scope="col" class="text-nowrap">ปริมาณ</th> --}}
-                                            <th scope="col" class="text-nowrap">บรรจุภัณฑ์</th>
+                                            <th scope="col" class="text-nowrap">จำนวน</th>
+                                            <th scope="col" class="text-nowrap">ประเภท</th>
                                             {{-- <th scope="col" class="text-nowrap">สรรพคุณ</th> --}}
-                                            <th scope="col" class="text-nowrap">คงคลัง</th>
                                             <th scope="col" class="text-nowrap">วันที่หมดอายุ</th>
                                             <th colspan="3">Actions</th>
                                         </tr>
@@ -55,9 +55,9 @@
                                             <td>{{$data->company_Name}}</td>
                                             {{-- <td>{{$data->drug_type}}</td>
                                             <td>{{$data->amount}}</td> --}}
+                                            <td>{{$data->stock}}</td>
                                             <td>{{$data->package}}</td>
                                             {{-- <td>{{$data->properties}}</td> --}}
-                                            <td>{{$data->stock}}</td>
                                             <td>{{$data->expiry_date}}</td>
                                             <td>
                                                 <button class="btn btn-success b-info" id="{{$data->pha_id}}">
