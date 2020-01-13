@@ -34,9 +34,10 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">ชื่อ นามสกุล </th>
+                                <th scope="col">คณะ/สังกัด</th>
                                 <th scope="col">โรคประจำตัว</th>
                                 <th scope="col">แพ้ยา</th>
-                                <th scope="col">Email</th>
+                                {{-- <th scope="col">Email</th> --}}
                                 <th scope="col">วันเกิด</th>
                                 <th scope="col">Role</th>
                                 <th scope="col">เวลาที่สมัคร</th>
@@ -48,9 +49,10 @@
                             <tr>
                                 <td>{{$data->id}}</td>
                                 <td>{{$data->name}}</td>
+                                <td>{{$data->faculty}}</td>
                                 <td>{{$data->congenital_disease }}</td>
                                 <td>{{$data->drug_allergies}}</td>
-                                <td>{{$data->email}}</td>
+                                {{-- <td>{{$data->email}}</td> --}}
                                 <td>{{$data->birth}}</td>
                                 <td>{{$data->role->role_name}}</td>
                                 <td>{{ date_format($data->created_at , 'd-M-Y')}}</td>

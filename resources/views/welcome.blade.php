@@ -80,20 +80,26 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                 <img src="<?php echo asset('assets/img/logo.png'); ?>">
+
+                 <div class="title m-b-md">
                     First Aid Room
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+               <div class="links">
+                    <a href="https://www.utcc.ac.th">มหาวิทยาลัยหอการค้าไทย</a>
+
                 </div>
-            </div>
+
+                <div class="links">
+                    <a href="https://www.utcc.ac.th/">University of the Thai Chamber of Commerce</a>
+
+                </div>
+
+                <div class="links">
+                    <a href="http://department.utcc.ac.th/utccswd/">ห้องพยาบาล อาคาร 22 ชั้น 1 โทรศัพท์ 02-6976911</a>
+
+                </div>
         </div>
     </body>
 </html>

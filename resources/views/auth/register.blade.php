@@ -67,7 +67,21 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
+                        <div class="form-group row">
+                            <label for="faculty" class="col-md-4 col-form-label text-md-right">คณะ/สังกัด</label>
+
+                            <div class="col-md-6">
+                                <input id="faculty" type="faculty" class="form-control @error('faculty') is-invalid @enderror" name="faculty" value="{{ old('faculty') }}" required autocomplete="faculty">
+
+                                @error('faculty')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="telephone_number" class="col-md-4 col-form-label text-md-right">เบอร์โทรศัพท์</label>
 
@@ -81,7 +95,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label for="parent_phone_number" class="col-md-4 col-form-label text-md-right">เบอร์ฉุกเฉิน</label>
 

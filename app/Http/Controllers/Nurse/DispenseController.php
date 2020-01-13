@@ -86,27 +86,31 @@ class DispenseController extends Controller
     public function update(Request $request, $id)
     {
         if(Auth::user()->is_admin() || Auth::user()->is_doc() || Auth::user()->is_nurse() ){
-            foreach ($request->pha as $key => $value) {
-                $Phama = PhamacyModel::find($key);
-                $amount = (int)$Phama->stock - $value;
-                if($amount < 0){
-                    $request->session()->flash('error', $Phama->trade_name." จำนวนยาน้อยกว่าความต้องการ");
-                    return Redirect::back()->withInput();
-                }
-                $Phama->stock = $amount;
-                $Phama->save();
-            }
             $data = HistoryModel::findOrfail($id);
-            $data->type_ = 'สำเร็จ';
-            foreach ($request->pha as $key => $value) {
-                $detailHis =  HistoryDetailModel::firstOrCreate([
-                    'pha_id' => $key,
-                    'user_id' => Auth::user()->id,
-                    'amount' => $value,
-                    'his_id' => $data->id
-                ]);
-                // $data->HistoryDetail()->save($detailHis);
+            if(count($request->pha) > 0){
+                foreach ($request->pha as $key => $value) {
+                    $Phama = PhamacyModel::find($key);
+                    $amount = (int)$Phama->stock - $value;
+                    if($amount < 0){
+                        $request->session()->flash('error', $Phama->trade_name." จำนวนยาน้อยกว่าความต้องการ");
+                        return Redirect::back()->withInput();
+                    }
+                    $Phama->stock = $amount;
+                    $Phama->save();
+                }
+
+
+                foreach ($request->pha as $key => $value) {
+                    $detailHis =  HistoryDetailModel::firstOrCreate([
+                        'pha_id' => $key,
+                        'user_id' => Auth::user()->id,
+                        'amount' => $value,
+                        'his_id' => $data->id
+                    ]);
+                    // $data->HistoryDetail()->save($detailHis);
+                }
             }
+            $data->type_ = 'สำเร็จ';
             $data->save();
             $request->session()->flash('success', "เพิ่มข้อมูลเรียบร้อย");
             return redirect(route('Dispense.index'));
